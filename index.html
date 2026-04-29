@@ -42,13 +42,13 @@
                 <div id="romanIguessToInteger">Roman I guess to integer:
                 </div>
                 <input id="romanInput">
-                <div id="integerOutput"></div>
+                <div id="integerOutput">???</div>
             </div>
             <div style="border-style: solid;display: flex;flex-direction: column;align-items: center;">
                 <div id="integerIguessToRoman">Integer I guess to Roman:
                 </div>
                 <input type="number" id="integerInput">
-                <div id="romanOutput"></div>
+                <div id="romanOutput">???</div>
             </div>
         </div>
     </div>
@@ -164,9 +164,17 @@
             }
         })
         document.getElementById("romanInput").addEventListener("input", function () {
+            if(document.getElementById("romanInput").value == "") {
+                document.getElementById("integerOutput").innerText = "???"
+                return
+            }
             document.getElementById("integerOutput").innerText = romanToInteger(document.getElementById("romanInput").value)
         })
         document.getElementById("integerInput").addEventListener("input", function () {
+            if(document.getElementById("integerInput").value == "") {
+                document.getElementById("romanOutput").innerText = "???"
+                return
+            }
             document.getElementById("romanOutput").innerText = integerToRoman(document.getElementById("integerInput").value)
         })
     </script>
