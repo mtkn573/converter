@@ -59,13 +59,16 @@
                 document.getElementById(`romanIguessToInteger`).textContent = `Liczba rzymska chyba na liczbę całkowitą:`
                 document.getElementById(`integerIguessToRoman`).textContent = `Liczba całkowita chyba na liczbę rzymską:`
                 document.getElementById(`language`).textContent = `Język.`
-                document.documentElement.setAttribute(`lang`, `pl`);
-            } else {
+                document.documentElement.setAttribute(`lang`, `pl`)
+                localStorage.setItem('language', 'pl')
+            }
+            else {
                 document.getElementById(`changeLanguage`).src = `polandFlag.jpg`
                 document.getElementById(`romanIguessToInteger`).textContent = `Roman I guess to integer:`
                 document.getElementById(`integerIguessToRoman`).textContent = `Integer I guess to Roman:`
                 document.getElementById(`language`).textContent = `Language.`
-                document.documentElement.setAttribute(`lang`, `en`);
+                document.documentElement.setAttribute(`lang`, `en`)
+                localStorage.setItem('language', 'en')
             }
         })
         function integerToRoman(number) {
@@ -154,6 +157,21 @@
             requestAnimationFrame(animateArrow)
         }
         window.addEventListener("DOMContentLoaded", function () {
+            savedLanguage = localStorage.getItem('language')
+            if (savedLanguage == `pl`) {
+                document.getElementById(`changeLanguage`).src = `unitedStatesFlag.jpg`
+                document.getElementById(`romanIguessToInteger`).textContent = `Liczba rzymska chyba na liczbę całkowitą:`
+                document.getElementById(`integerIguessToRoman`).textContent = `Liczba całkowita chyba na liczbę rzymską:`
+                document.getElementById(`language`).textContent = `Język.`
+                document.documentElement.setAttribute(`lang`, `pl`)
+            }
+            else {
+                document.getElementById(`changeLanguage`).src = `polandFlag.jpg`
+                document.getElementById(`romanIguessToInteger`).textContent = `Roman I guess to integer:`
+                document.getElementById(`integerIguessToRoman`).textContent = `Integer I guess to Roman:`
+                document.getElementById(`language`).textContent = `Language.`
+                document.documentElement.setAttribute(`lang`, `en`)
+            }
             arrow = document.getElementById("arrow")
             if (arrow.complete && arrow.naturalWidth != 0) {
                 animateArrow()
@@ -164,14 +182,14 @@
             }
         })
         document.getElementById("romanInput").addEventListener("input", function () {
-            if(document.getElementById("romanInput").value == "") {
+            if (document.getElementById("romanInput").value == "") {
                 document.getElementById("integerOutput").innerText = "???"
                 return
             }
             document.getElementById("integerOutput").innerText = romanToInteger(document.getElementById("romanInput").value)
         })
         document.getElementById("integerInput").addEventListener("input", function () {
-            if(document.getElementById("integerInput").value == "") {
+            if (document.getElementById("integerInput").value == "") {
                 document.getElementById("romanOutput").innerText = "???"
                 return
             }
