@@ -53,7 +53,16 @@
         </div>
     </div>
     <script>
-        document.getElementById(`changeLanguage`).addEventListener(`click`, function () {
+        isAndroid=/Android/i.test(navigator.userAgent)
+        if(!isAndroid){
+            document.body.innerHTML="korzystanie z apki chyba jest możliwe na urządzeniach z systemem android.<br><br>using app is i guess available on devices with android system."
+            document.body.style.fontSize="30px"
+            document.body.style.display="flex"
+            document.body.style.justifyContent="center"
+            document.body.style.alignItems="center"
+        }else{ 
+            document.getElementById(`changeLanguage`).addEventListener
+            (`click`, function () {
             if (document.getElementById(`changeLanguage`).src.includes(`polandFlag.jpg`)) {
                 document.getElementById(`changeLanguage`).src = `unitedStatesFlag.jpg`
                 document.getElementById(`romanIguessToInteger`).textContent = `Liczba rzymska chyba na liczbę całkowitą:`
@@ -69,133 +78,134 @@
                 document.getElementById(`language`).textContent = `Language.`
                 document.documentElement.setAttribute(`lang`, `en`)
                 localStorage.setItem('language', 'en')
-            }
-        })
-        function integerToRoman(number) {
-            let roman = ""
-            while (number > 0) {
-                if (number >= 1000) {
-                    roman += "M"
-                    number -= 1000;
-                } else if (number >= 900) {
-                    roman += "CM"
-                    number -= 900;
-                } else if (number >= 500) {
-                    roman += "D"
-                    number -= 500;
-                } else if (number >= 400) {
-                    roman += "CD"
-                    number -= 400;
-                } else if (number >= 100) {
-                    roman += "C"
-                    number -= 100;
-                } else if (number >= 90) {
-                    roman += "XC"
-                    number -= 90;
-                } else if (number >= 50) {
-                    roman += "L"
-                    number -= 50;
-                } else if (number >= 40) {
-                    roman += "XL"
-                    number -= 40;
-                } else if (number >= 10) {
-                    roman += "X"
-                    number -= 10;
-                } else if (number >= 9) {
-                    roman += "IX"
-                    number -= 9;
-                } else if (number >= 5) {
-                    roman += "V"
-                    number -= 5;
-                } else if (number >= 4) {
-                    roman += "IV"
-                    number -= 4;
-                } else if (number <= 3) {
-                    roman += "I"
-                    number -= 1;
                 }
-            }
-            return roman;
-        };
-
-        function romanToInteger(roman) {
-            let symbols = {
-                "I": 1,
-                "V": 5,
-                "X": 10,
-                "L": 50,
-                "C": 100,
-                "D": 500,
-                "M": 1000
+            })
+            function integerToRoman(number) {
+                let roman = ""
+                while (number > 0) {
+                    if (number >= 1000) {
+                        roman += "M"
+                        number -= 1000;
+                    } else if (number >= 900) {
+                        roman += "CM"
+                        number -= 900;
+                    } else if (number >= 500) {
+                        roman += "D"
+                        number -= 500;
+                    } else if (number >= 400) {
+                        roman += "CD"
+                        number -= 400;
+                    } else if (number >= 100) {
+                        roman += "C"
+                        number -= 100;
+                    } else if (number >= 90) {
+                        roman += "XC"
+                        number -= 90;
+                    } else if (number >= 50) {
+                        roman += "L"
+                        number -= 50;
+                    } else if (number >= 40) {
+                        roman += "XL"
+                        number -= 40;
+                    } else if (number >= 10) {
+                        roman += "X"
+                        number -= 10;
+                    } else if (number >= 9) {
+                        roman += "IX"
+                        number -= 9;
+                    } else if (number >= 5) {
+                        roman += "V"
+                        number -= 5;
+                    } else if (number >= 4) {
+                        roman += "IV"
+                        number -= 4;
+                    } else if (number <= 3) {
+                        roman += "I"
+                        number -= 1;
+                    }
+                }
+                return roman;
             };
-            let value = 0;
-            for (let i = 0; i < roman.length; i++) {
-                if (i + 1 < roman.length && symbols[roman[i]] < symbols[roman[i + 1]]) {
-                    value -= symbols[roman[i]];
-                } else {
-                    value += symbols[roman[i]];
+
+            function romanToInteger(roman) {
+                let symbols = {
+                    "I": 1,
+                    "V": 5,
+                    "X": 10,
+                    "L": 50,
+                    "C": 100,
+                    "D": 500,
+                    "M": 1000
+                };
+                let value = 0;
+                for (let i = 0; i < roman.length; i++) {
+                    if (i + 1 < roman.length && symbols[roman[i]] < symbols[roman[i + 1]]) {
+                        value -= symbols[roman[i]];
+                    } else {
+                        value += symbols[roman[i]];
+                    }
                 }
+                return value;
+            };
+            arrowY = 0
+            direction = 1
+            maxY = 100
+            minY = 0
+            function animateArrow() {
+                canvas = document.getElementById("canvas")
+                contex = canvas.getContext("2d")
+                arrow = document.getElementById("arrow")
+                contex.clearRect(0, 0, canvas.width, canvas.height);
+                if (arrow.complete && arrow.naturalWidth != 0) {
+                    contex.drawImage(arrow, 0, arrowY);
+                }
+                arrowY += direction * 2
+                if (arrowY >= maxY || arrowY <= minY) {
+                    direction *= -1
+                }
+                requestAnimationFrame(animateArrow)
             }
-            return value;
-        };
-        arrowY = 0
-        direction = 1
-        maxY = 100
-        minY = 0
-        function animateArrow() {
-            canvas = document.getElementById("canvas")
-            contex = canvas.getContext("2d")
-            arrow = document.getElementById("arrow")
-            contex.clearRect(0, 0, canvas.width, canvas.height);
-            if (arrow.complete && arrow.naturalWidth != 0) {
-                contex.drawImage(arrow, 0, arrowY);
-            }
-            arrowY += direction * 2
-            if (arrowY >= maxY || arrowY <= minY) {
-                direction *= -1
-            }
-            requestAnimationFrame(animateArrow)
-        }
-        window.addEventListener("DOMContentLoaded", function () {
-            savedLanguage = localStorage.getItem('language')
-            if (savedLanguage == `pl`) {
-                document.getElementById(`changeLanguage`).src = `unitedStatesFlag.jpg`
-                document.getElementById(`romanIguessToInteger`).textContent = `Liczba rzymska chyba na liczbę całkowitą:`
-                document.getElementById(`integerIguessToRoman`).textContent = `Liczba całkowita chyba na liczbę rzymską:`
-                document.getElementById(`language`).textContent = `Język.`
-                document.documentElement.setAttribute(`lang`, `pl`)
-            }
-            else {
-                document.getElementById(`changeLanguage`).src = `polandFlag.jpg`
-                document.getElementById(`romanIguessToInteger`).textContent = `Roman I guess to integer:`
-                document.getElementById(`integerIguessToRoman`).textContent = `Integer I guess to Roman:`
-                document.getElementById(`language`).textContent = `Language.`
-                document.documentElement.setAttribute(`lang`, `en`)
-            }
-            arrow = document.getElementById("arrow")
-            if (arrow.complete && arrow.naturalWidth != 0) {
-                animateArrow()
-            } else {
-                arrow.addEventListener("load", function () {
+            window.addEventListener("DOMContentLoaded", function () {
+                savedLanguage = localStorage.getItem('language')
+                if (savedLanguage == `pl`) {
+                    document.getElementById(`changeLanguage`).src = `unitedStatesFlag.jpg`
+                    document.getElementById(`romanIguessToInteger`).textContent = `Liczba rzymska chyba na liczbę całkowitą:`
+                    document.getElementById(`integerIguessToRoman`).textContent = `Liczba całkowita chyba na liczbę rzymską:`
+                    document.getElementById(`language`).textContent = `Język.`
+                    document.documentElement.setAttribute(`lang`, `pl`)
+                }
+                else {
+                    document.getElementById(`changeLanguage`).src = `polandFlag.jpg`
+                    document.getElementById(`romanIguessToInteger`).textContent = `Roman I guess to integer:`
+                    document.getElementById(`integerIguessToRoman`).textContent = `Integer I guess to Roman:`
+                    document.getElementById(`language`).textContent = `Language.`
+                    document.documentElement.setAttribute(`lang`, `en`)
+                }
+                arrow = document.getElementById("arrow")
+                if (arrow.complete && arrow.naturalWidth != 0) {
                     animateArrow()
-                })
-            }
-        })
-        document.getElementById("romanInput").addEventListener("input", function () {
-            if (document.getElementById("romanInput").value == "") {
-                document.getElementById("integerOutput").innerText = "???"
-                return
-            }
-            document.getElementById("integerOutput").innerText = romanToInteger(document.getElementById("romanInput").value)
-        })
-        document.getElementById("integerInput").addEventListener("input", function () {
-            if (document.getElementById("integerInput").value == "") {
-                document.getElementById("romanOutput").innerText = "???"
-                return
-            }
-            document.getElementById("romanOutput").innerText = integerToRoman(document.getElementById("integerInput").value)
-        })
+                } else {
+                    arrow.addEventListener("load", function () {
+                        animateArrow()
+                    })
+                }
+            })
+            document.getElementById("romanInput").addEventListener("input", function () {
+                if (document.getElementById("romanInput").value == "") {
+                    document.getElementById("integerOutput").innerText = "???"
+                    return
+                }
+                document.getElementById("integerOutput").innerText = romanToInteger(document.getElementById("romanInput").value)
+            })
+            document.getElementById("integerInput").addEventListener("input", function () {
+                if (document.getElementById("integerInput").value == "") {
+                    document.getElementById("romanOutput").innerText = "???"
+                    return
+                }
+                document.getElementById("romanOutput").innerText = integerToRoman(document.getElementById("integerInput").value)
+            })
+        }
     </script>
 </body>
 
-</html>
+</html> 
