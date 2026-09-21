@@ -54,8 +54,9 @@
     </div>
     <script>
         isAndroid=/Android/i.test(navigator.userAgent)
-        if(!isAndroid){
-            document.body.innerHTML="korzystanie z apki chyba jest możliwe na urządzeniach z systemem android.<br><br>using app is i guess available on devices with android system."
+        let isIos = /iPad|iPhone|iPod/.test(navigator.platform)||(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+        if(!isAndroid&&!isIos){
+            document.body.innerHTML="korzystanie z apki chyba jest możliwe na urządzeniach z systemem ios i android.<br><br>using app is i guess available on devices with ios or android system."
             document.body.style.fontSize="30px"
             document.body.style.display="flex"
             document.body.style.justifyContent="center"
